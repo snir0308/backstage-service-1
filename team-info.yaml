@@ -9,3 +9,4 @@ spec:
     displayName: Artist Realtions
     email: artistrelations@example.com
   children: []
+  members: [jdoe]
