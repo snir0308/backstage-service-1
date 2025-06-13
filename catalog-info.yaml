@@ -1,4 +1,48 @@
 apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shop
+  description: Everything about sysco shop
+spec:
+  owner: sysco-shop-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shop-ordering
+  description: Everything about sysco shop ordering
+spec:
+  owner: sysco-shop-ordering-team
+  subdomainOf: shop
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shop-users-accounts
+  description: Everything about sysco shop users and accounts
+spec:
+  owner: sysco-shop-users-accounts-team
+  subdomainOf: shop
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shop-accounts-onboarding
+  description: Everything about sysco shop accounts onboarding
+spec:
+  owner: sysco-shop-accounts-onboarding-team
+  subdomainOf: shop-users-accounts 
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shop-authentication
+  description: Everything about sysco shop authentication
+spec:
+  owner: sysco-shop-authentication-team
+  subdomainOf: shop-users-accounts
+---
+apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
   name: jdoe
