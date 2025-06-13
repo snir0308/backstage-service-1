@@ -183,6 +183,18 @@ spec:
   system: user-authentication-system
 ---
 apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: petstore
+  description: The Petstore API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: sysco-shop-authentication-team
+  definition:
+    $text: https://petstore.swagger.io/v2/swagger.json  
+---
+apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: auth-service
@@ -195,4 +207,4 @@ spec:
   dependsOn:
     - resource:default/keycloak
   providesApis:
-    - artist-api
+    - petstore
