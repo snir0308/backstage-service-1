@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: artist-relations-team
+  description: The artist relation team
+spec:
+  type: team
+  profile:
+    displayName: Artist Realtions
+    email: artistrelations@example.com
+  children: []
