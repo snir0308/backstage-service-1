@@ -45,39 +45,154 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: jdoe
+  name: jb
 spec:
   profile:
-    displayName: Jenny Doe
-    email: jenny-doe@example.com
+    displayName: Jonathan Black
+    email: jb@sysco.com
   memberOf: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sasin
+spec:
+  profile:
+    displayName: Sasitha Niranjana
+    email: sasitha.n@sysco.com
+  memberOf: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: shanik
+spec:
+  profile:
+    displayName: Shanik Makalanda
+    email: shanik.m@sysco.com
+  memberOf: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: laya
+spec:
+  profile:
+    displayName: Layansan
+    email: laya@sysco.com
+  memberOf: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: chandima
+spec:
+  profile:
+    displayName: Chandima
+    email: chandima@sysco.com
+  memberOf: []           
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: artist-relations-team
-  description: The artist relation team
+  name: sysco-shop-team
+  description: The team responsible of the design, development of sysco shop
 spec:
   type: team
   profile:
-    displayName: Artist Realtions
-    email: artistrelations@example.com
+    displayName: Team Sysco Shop
   children: []
-  members: [jdoe]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sysco-shop-ordering-team
+  description: The team responsible of the design, development of sysco shop ordering
+spec:
+  type: team
+  profile:
+    displayName: Team Sysco Shop Ordering
+  parent: sysco-shop-team  
+  children: []
+  members: [jb,chandima]  
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sysco-shop-users-accounts-team
+  description: The team responsible of the design, development of sysco shop users and accounts
+spec:
+  type: team
+  profile:
+    displayName: Team Sysco Shop Users & Accounts
+  parent: sysco-shop-team  
+  children: [] 
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sysco-shop-accounts-onboarding-team
+  description: The team responsible of the design, development of sysco shop users and accounts Onboarding
+spec:
+  type: team
+  profile:
+    displayName: Team Sysco Shop Users & Accounts Onboarding
+  parent: sysco-shop-users-accounts-team
+  children: []
+  members: [sasin]  
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: sysco-shop-authentication-team
+  description: The team responsible of the design, development of sysco shop users and accounts Authentication
+spec:
+  type: team
+  profile:
+    displayName: Team Sysco Shop Users & Accounts Authentication
+  parent: sysco-shop-users-accounts-team
+  children: []
+  members: [laya,shanik]       
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: user-permission-management-portal
+  description: Unified system to manage user permissions to sysco shop
+spec:
+  owner: sysco-shop-authentication-team
+  domain: shop-authentication
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: user-authentication-system
+  description: System for user authentication and issue JWT tokens
+spec:
+  owner: sysco-shop-authentication-team
+  domain: shop-authentication  
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: keycloak
+  description: Keycloak IDP
+spec:
+  type: identity-provider
+  owner: sysco-shop-authentication-team
+  system: user-authentication-system
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: artist-web
-  description: The place to be, for great artists
+  name: auth-service
+  description: The service to handle user authentication
 spec:
-  type: website
+  type: service
   lifecycle: production
-  owner: artist-relations-team
-  system: artist-engagement-portal
+  owner: sysco-shop-authentication-team
+  system: user-authentication-system
   dependsOn:
-    - resource:default/artists-db
-  dependencyOf:
-    - component:default/artist-web-lookup
+    - resource:default/keycloak
   providesApis:
     - artist-api
