@@ -218,6 +218,6 @@ spec:
   system: user-authentication-system
   dependsOn:
     - resource:default/keycloak
-    - resource:default/redis
+    #- resource:default/redis
   providesApis:
     - petstore
