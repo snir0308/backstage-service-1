@@ -183,6 +183,16 @@ spec:
   system: user-authentication-system
 ---
 apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: redis
+  description: User Cache
+spec:
+  type: inmemory-cache
+  owner: sysco-shop-authentication-team
+  system: user-authentication-system  
+---
+apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: petstore
@@ -208,5 +218,6 @@ spec:
   system: user-authentication-system
   dependsOn:
     - resource:default/keycloak
+    - resource:default/redis
   providesApis:
     - petstore
